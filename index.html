@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/hero-post.jpg" fetchpriority="high" />
 <style>
   /* ====== Page-specific (Home) ====== */
   .hero {
@@ -68,6 +69,19 @@
   }
   .hero-card-2 .hero-card-img {
     object-position: center 18%;
+  }
+  .hero-card-3 .hero-card-img {
+    transition: opacity 0.35s ease;
+  }
+  .hero-card-3 .hero-card-video {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .hero-card-3.is-playing .hero-card-video {
+    opacity: 1;
+  }
+  .hero-card-3.is-playing .hero-card-img {
+    opacity: 0;
   }
   .hero-card.has-video .pc-tag,
   .hero-card.has-video .pc-corner {
@@ -532,7 +546,8 @@
           <span class="pc-corner">IA</span>
         </div>
         <div class="photo-card hero-card hero-card-3 has-video">
-          <video class="hero-card-video" data-start="1" autoplay muted playsinline preload="auto" aria-label="Scheduled post preview">
+          <img class="hero-card-img" src="assets/hero-post.jpg" alt="Scheduled post preview" width="600" height="800" loading="eager" decoding="async" fetchpriority="high">
+          <video class="hero-card-video" data-start="0" autoplay muted playsinline loop preload="auto" poster="assets/hero-post.jpg" aria-label="Scheduled post preview">
             <source src="assets/hero-post.mp4" type="video/mp4">
           </video>
           <span class="pc-tag">/ post · 14:00</span>

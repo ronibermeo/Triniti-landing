@@ -23,10 +23,17 @@
 
     video.addEventListener('timeupdate', loopClip);
 
+    function markPlaying() {
+      var card = video.closest('.hero-card');
+      if (card) card.classList.add('is-playing');
+    }
+
     function initPlay() {
       seekToStart();
-      video.play().catch(function () {});
+      video.play().then(markPlaying).catch(function () {});
     }
+
+    video.addEventListener('playing', markPlaying);
 
     video.addEventListener('loadedmetadata', initPlay);
     if (video.readyState >= 1) initPlay();
