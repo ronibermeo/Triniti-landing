@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Talk to sales · Triniti</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  .page-hero { padding: 80px 0 40px; text-align: center; }
+  .page-hero h1 { margin: 0 auto; max-width: 920px; }
+  .page-hero .lead {
+    margin: 28px auto 0;
+    font-size: 19px;
+    color: var(--ink-mid);
+    max-width: 620px;
+  }
+  .demo-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1.4fr;
+    gap: 48px;
+    padding: 30px 0 100px;
+    align-items: start;
+  }
+  .demo-side h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .demo-side h2 em { font-style: italic; color: var(--plum); font-weight: 380; }
+  .demo-side .lead-side {
+    color: var(--ink-mid);
+    font-size: 15px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .check-list { list-style: none; padding: 0; margin: 0 0 32px; }
+  .check-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    gap: 14px;
+    align-items: start;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .check-list li:last-child { border: none; }
+  .check-list .ic {
+    color: var(--plum);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .demo-meta {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 24px 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .demo-meta div { display: flex; flex-direction: column; gap: 4px; }
+  .demo-meta .k {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .demo-meta .v {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .demo-meta .v em { font-style: italic; color: var(--plum); font-weight: 380; }
+
+  .calendar-card {
+    background: linear-gradient(180deg, var(--paper-elev) 0%, var(--paper-soft) 100%);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 44px;
+    position: relative;
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 24px 60px -28px rgba(95,74,140,.15);
+    overflow: hidden;
+  }
+  .calendar-card::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -60px;
+    width: 220px; height: 220px;
+    background: var(--lilac);
+    opacity: .18;
+    filter: blur(80px);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .calendar-card > * { position: relative; }
+  .calendar-card .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--lilac-faint);
+    color: var(--plum-deep);
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .calendar-card .badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--plum);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.8); }
+  }
+  .calendar-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .calendar-card h3 em { font-style: italic; color: var(--plum); font-weight: 380; }
+  .calendar-card .sub {
+    font-size: 14px;
+    color: var(--ink-mid);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* Form */
+  .req-form { display: flex; flex-direction: column; gap: 22px; }
+  .req-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .req-section-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 400;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .req-section-title .step-num {
+    font-family: 'Manrope', sans-serif;
+    font-style: normal;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--plum);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .req-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .req-field { display: flex; flex-direction: column; gap: 7px; position: relative; }
+  .req-field label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .req-field label .req { color: var(--plum); }
+  .req-field .input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .req-field .input-wrap .ic {
+    position: absolute;
+    left: 14px;
+    color: var(--ink-faint);
+    pointer-events: none;
+    display: flex;
+    transition: color 0.2s;
+  }
+  .req-field .input-wrap .ic svg { width: 16px; height: 16px; }
+  .req-field input,
+  .req-field select,
+  .req-field textarea {
+    width: 100%;
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset;
+  }
+  .req-field .input-wrap input,
+  .req-field .input-wrap select { padding-left: 40px; }
+  .req-field input::placeholder,
+  .req-field textarea::placeholder {
+    color: var(--ink-faint);
+  }
+  .req-field input:hover,
+  .req-field select:hover,
+  .req-field textarea:hover { border-color: var(--ink-faint); }
+  .req-field input:focus,
+  .req-field select:focus,
+  .req-field textarea:focus {
+    border-color: var(--plum);
+    background: var(--paper-elev);
+    box-shadow: 0 0 0 4px rgba(122,95,174,.12), 0 1px 0 rgba(255,255,255,.5) inset;
+  }
+  .req-field .input-wrap:focus-within .ic { color: var(--plum); }
+  .req-field textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.55;
+  }
+  .req-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%237A5FAE'><path d='M4 6l4 4 4-4'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px;
+    padding-right: 38px;
+  }
+  .req-field .hint {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
+  .req-submit {
+    background: linear-gradient(180deg, var(--ink) 0%, #1a1612 100%);
+    color: var(--paper);
+    border: none;
+    border-radius: 100px;
+    padding: 18px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Manrope', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 8px 20px -8px rgba(42,37,32,.4);
+    letter-spacing: 0.01em;
+  }
+  .req-submit:hover {
+    background: linear-gradient(180deg, var(--plum) 0%, var(--plum-deep) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px -10px rgba(95,74,140,.45);
+  }
+  .req-submit:active { transform: translateY(0); }
+  .req-submit .arrow { transition: transform 0.2s; }
+  .req-submit:hover .arrow { transform: translateX(4px); }
+  .req-fineprint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+  .req-fineprint a { color: var(--plum); text-decoration: none; border-bottom: 1px solid var(--lilac); }
+
+  /* Success state */
+  .req-success {
+    display: none;
+    text-align: center;
+    padding: 40px 10px;
+    animation: fadeUp 0.5s ease-out;
+  }
+  .req-success.show { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .req-success .icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lilac-faint) 0%, var(--paper-elev) 100%);
+    border: 1px solid var(--lilac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--plum);
+    font-size: 34px;
+    box-shadow: 0 12px 28px -10px rgba(95,74,140,.3);
+  }
+  .req-success h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 12px;
+  }
+  .req-success h4 em { font-style: italic; color: var(--plum); }
+  .req-success p {
+    color: var(--ink-mid);
+    font-size: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .fallback {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .fallback a {
+    color: var(--plum);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid var(--lilac);
+  }
+
+  /* Process strip */
+  .process {
+    background: var(--paper-soft);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 80px 0;
+  }
+  .process h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 380;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 48px;
+    max-width: 720px;
+  }
+  .process h2 em { font-style: italic; color: var(--plum); font-weight: 350; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .step {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px;
+  }
+  .step-n {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--plum);
+    font-style: italic;
+    margin-bottom: 14px;
+    font-weight: 380;
+  }
+  .step h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .step p { color: var(--ink-mid); font-size: 14px; line-height: 1.55; }
+
+  /* FAQ */
+  .faq-section { padding: 90px 0; }
+  .faq-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 380;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 40px;
+    max-width: 720px;
+  }
+  .faq-section h2 em { font-style: italic; color: var(--plum); font-weight: 350; }
+  details {
+    border-bottom: 1px solid var(--line);
+    padding: 24px 0;
+  }
+  details:first-of-type { border-top: 1px solid var(--line); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--plum); }
+  summary::after {
+    content: '+';
+    color: var(--plum);
+    font-size: 26px;
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p {
+    margin-top: 14px;
+    color: var(--ink-mid);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 700px;
+  }
+
+  @media (max-width: 960px) {
+    .demo-grid { grid-template-columns: 1fr; gap: 30px; }
+    .demo-meta { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .demo-meta { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .calendly-inline-widget { height: 620px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="banner-content">
+    <span class="banner-dot"></span>
+    <span>For agencies running <em>3+ models</em> · Custom plans available · 1-on-1 onboarding</span>
+    <span class="banner-dot"></span>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo" aria-label="Triniti — Home">
+      <span class="logo-lottie" aria-hidden="true"></span>
+      <span class="logo-word">Triniti</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="producto.html">Product</a>
+      <a href="planes.html">Pricing</a>
+    </div>
+    <a href="#book" class="nav-cta">Book a demo</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1>Built for <span class="italic">agencies</span>. By application only.</h1>
+    <p class="lead">We onboard a limited number of agencies per month. Submit a request — if there's fit, we send a calendar link within 24 hours and run a private 30-minute demo with your team.</p>
+  </div>
+</section>
+
+<!-- Book + side -->
+<section id="book">
+  <div class="container demo-grid">
+
+    <aside class="demo-side">
+      <h2>What you'll get on the <em>call</em>.</h2>
+      <p class="lead-side">Built for founders running multi-model agencies. We respect your time — agenda fixed, no pitch loop.</p>
+
+      <div class="demo-meta">
+        <div><span class="k">Review</span><span class="v">&lt; 24h</span></div>
+        <div><span class="k">Demo</span><span class="v"><em>30 min</em></span></div>
+        <div><span class="k">Cost</span><span class="v">$0</span></div>
+      </div>
+
+      <ul class="check-list">
+        <li><span class="ic">✓</span><span>Live walkthrough of the dashboard with your niche references.</span></li>
+        <li><span class="ic">✓</span><span>How we connect Instagram via Meta Graph API — <b>no passwords</b>, OAuth only.</span></li>
+        <li><span class="ic">✓</span><span>Custom pricing for 3+ models, dedicated account manager, white-label options.</span></li>
+        <li><span class="ic">✓</span><span>SLA, security, contract review — you leave with a signed quote PDF.</span></li>
+        <li><span class="ic">✓</span><span>Onboarding plan: avatar training, first 30 days, ramp to full volume.</span></li>
+      </ul>
+
+      <p class="fallback" style="text-align:left;">Already running &gt;20 accounts? Email <a href="mailto:triniti.agent.ia@gmail.com">triniti.agent.ia@gmail.com</a> for priority slot.</p>
+    </aside>
+
+    <div class="calendar-card">
+      <span class="badge"><span class="dot"></span>Accepting applications</span>
+      <h3>Request <em>access</em>.</h3>
+      <p class="sub">We review every request by hand. If there's fit, a calendar link lands in your inbox within 24 hours.</p>
+
+      <form class="req-form" id="reqForm" action="mailto:triniti.agent.ia@gmail.com" method="POST" enctype="text/plain">
+
+        <div class="req-section">
+          <div class="req-section-title"><span class="step-num">1</span>About you</div>
+          <div class="req-row">
+            <div class="req-field">
+              <label for="f_name">Full name<span class="req">*</span></label>
+              <div class="input-wrap">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span>
+                <input type="text" id="f_name" name="name" placeholder="Samuel Arbeláez" required />
+              </div>
+            </div>
+            <div class="req-field">
+              <label for="f_email">Work email<span class="req">*</span></label>
+              <div class="input-wrap">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                <input type="email" id="f_email" name="email" placeholder="you@agency.com" required />
+              </div>
+            </div>
+          </div>
+          <div class="req-field">
+            <label for="f_phone">Phone number<span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L7.9 9.6a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6a2 2 0 0 1 1.7 2z"/></svg></span>
+              <input type="tel" id="f_phone" name="phone" placeholder="+57 300 000 0000" required />
+            </div>
+            <span class="hint">For WhatsApp/SMS confirmation. Country code included.</span>
+          </div>
+        </div>
+
+        <div class="req-section">
+          <div class="req-section-title"><span class="step-num">2</span>Your agency</div>
+          <div class="req-field">
+            <label for="f_agency">Agency name<span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h2M9 13h2M9 17h2M13 9h2M13 13h2M13 17h2"/></svg></span>
+              <input type="text" id="f_agency" name="agency" placeholder="e.g. Velvet Mgmt" required />
+            </div>
+          </div>
+          <div class="req-row">
+            <div class="req-field">
+              <label for="f_models">Models on roster<span class="req">*</span></label>
+              <select id="f_models" name="models" required>
+                <option value="">Select range</option>
+                <option value="1-2">1–2 models</option>
+                <option value="3-5">3–5 models</option>
+                <option value="6-10">6–10 models</option>
+                <option value="11-20">11–20 models</option>
+                <option value="20+">20+ models</option>
+              </select>
+            </div>
+            <div class="req-field">
+              <label for="f_revenue">Monthly revenue<span class="req">*</span></label>
+              <select id="f_revenue" name="revenue" required>
+                <option value="">Select range</option>
+                <option value="under-10k">Under $10k</option>
+                <option value="10-30k">$10k – $30k</option>
+                <option value="30-100k">$30k – $100k</option>
+                <option value="100-500k">$100k – $500k</option>
+                <option value="500k+">$500k+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="req-section">
+          <div class="req-section-title"><span class="step-num">3</span>The fit</div>
+          <div class="req-field">
+            <label for="f_accounts">IG accounts you want to manage<span class="req">*</span></label>
+            <select id="f_accounts" name="ig_accounts" required>
+              <option value="">Select range</option>
+              <option value="1-5">1–5 accounts</option>
+              <option value="6-10">6–10 accounts</option>
+              <option value="11-20">11–20 accounts</option>
+              <option value="21-50">21–50 accounts</option>
+              <option value="50+">50+ accounts</option>
+            </select>
+          </div>
+          <div class="req-field">
+            <label for="f_notes">What are you trying to solve?</label>
+            <textarea id="f_notes" name="notes" placeholder="Current stack, what's broken, volume goals, timeline..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="req-submit">
+          Submit request
+          <span class="arrow" style="font-size:18px;">→</span>
+        </button>
+
+        <p class="req-fineprint">
+          We respond within 24h, Mon–Fri. By submitting you agree to our <a href="#">privacy policy</a>.<br>
+          Prefer email? Write to <a href="mailto:triniti.agent.ia@gmail.com">triniti.agent.ia@gmail.com</a>.
+        </p>
+      </form>
+
+      <div class="req-success" id="reqSuccess">
+        <div class="icon">✓</div>
+        <h4>One last <em>step</em>.</h4>
+        <p>Your mail client just opened with the request pre-filled. <b>Press send</b> to deliver it to our team. We'll review and reply with a calendar link within 24h.</p>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        var form = document.getElementById('reqForm');
+        var success = document.getElementById('reqSuccess');
+        if (!form) return;
+
+        var labels = {
+          name: 'Full name',
+          email: 'Work email',
+          phone: 'Phone',
+          agency: 'Agency',
+          models: 'Models on roster',
+          revenue: 'Monthly revenue',
+          ig_accounts: 'IG accounts to manage',
+          notes: 'What they want to solve'
+        };
+
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          var data = new FormData(form);
+          var lines = [];
+          Object.keys(labels).forEach(function(k){
+            var v = (data.get(k) || '').toString().trim();
+            lines.push(labels[k] + ': ' + (v || '—'));
+          });
+          var body = 'New access request from triniti.app\n\n' + lines.join('\n') + '\n\n— Sent from the talk-to-sales form';
+          var subject = 'New access request — ' + (data.get('agency') || data.get('name') || 'unknown');
+          var mailto = 'mailto:triniti.agent.ia@gmail.com'
+            + '?subject=' + encodeURIComponent(subject)
+            + '&body=' + encodeURIComponent(body);
+
+          // open user's mail client
+          window.location.href = mailto;
+
+          // show success state on the page
+          setTimeout(function(){
+            form.style.display = 'none';
+            success.classList.add('show');
+          }, 400);
+        });
+      })();
+    </script>
+
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process">
+  <div class="container">
+    <h2>From call to <span class="italic">first post</span> — what happens.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">/ 01</div>
+        <h4>Application review</h4>
+        <p>You submit the form. We review your roster, volume, and fit within 24h — manually, not a chatbot.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">/ 02</div>
+        <h4>Private demo</h4>
+        <p>If we're a match, we send a calendar link. 30-minute call on Google Meet with the dashboard live.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">/ 03</div>
+        <h4>Proposal + contract</h4>
+        <p>Quote PDF within 24h of the call. 1-page MSA via PandaDoc. eSign — no lawyers needed for standard plans.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">/ 04</div>
+        <h4>Onboarding</h4>
+        <p>Pay via Paddle. Connect Instagram via Meta OAuth (no passwords). 1-on-1 setup, avatar training, first 30 days planned.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2>Questions agencies <span class="italic">always</span> ask.</h2>
+
+    <details open>
+      <summary>Do I need to share Instagram passwords?</summary>
+      <p>No. Triniti connects through Meta's official Graph API via OAuth. You authorize once from your IG Business account — we receive a token. Standard practice for Buffer, Later, Hootsuite. Your password never touches our servers.</p>
+    </details>
+    <details>
+      <summary>What does pricing actually look like for 10+ models?</summary>
+      <p>Custom. Agency plan ($1,799/mo) handles up to 20 IG accounts and 10 avatars. Past that we quote based on accounts, AI credits, and concurrency needs. Volume discounts available — typical agencies running 30+ accounts pay $2,499–$3,999/mo all-in.</p>
+    </details>
+    <details>
+      <summary>How do payments work? I'm outside the US.</summary>
+      <p>We bill via Paddle (Merchant of Record). Cards, SEPA, PayPal, or wire transfer for annual plans. PDF invoices auto-generated. Paddle handles VAT and international tax compliance.</p>
+    </details>
+    <details>
+      <summary>Is there a contract or month-to-month?</summary>
+      <p>Both. Month-to-month available on all plans. Annual contracts get 20% off and lock the early-access price for life. Standard MSA is 1 page, eSigned via PandaDoc before first invoice.</p>
+    </details>
+    <details>
+      <summary>What about security and account safety?</summary>
+      <p>We use Meta's official API only — no scraping, no automation that violates ToS. Tokens encrypted at rest. SOC 2 in progress. Per-agency isolated workspaces. NDA available on request before the call.</p>
+    </details>
+    <details>
+      <summary>Can I cancel anytime?</summary>
+      <p>Yes. Month-to-month plans cancel from the customer portal — no calls, no retention scripts. Annual plans pro-rate refunds at our discretion.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo" aria-label="Triniti — Home">
+          <span class="logo-lottie" aria-hidden="true"></span>
+          <span class="logo-word">Triniti</span>
+        </a>
+        <p class="foot-tag">AI content, multi-account scheduling, and smart search — one dashboard for OF agencies.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="producto.html">Product</a></li>
+          <li><a href="planes.html">Pricing</a></li>
+          <li><a href="talk-to-sales.html">Talk to sales</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="producto.html#contenido">AI generation</a></li>
+          <li><a href="producto.html#programacion">Scheduling</a></li>
+          <li><a href="producto.html#referencias">Smart search</a></li>
+          <li><a href="producto.html#auto-dms">Auto-DMs · Coming soon</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span><em>The platform for agencies that scale without fear</em> · 2026</span>
+      <span>© Triniti</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="logo.js"></script>
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Product · Triniti</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  .page-hero {
+    padding: 80px 0 50px;
+    text-align: center;
+  }
+  .page-hero h1 { margin: 0 auto; max-width: 940px; }
+  .page-hero p {
+    margin: 28px auto 0;
+    font-size: 19px;
+    color: var(--ink-mid);
+    max-width: 620px;
+  }
+
+  /* Feature blocks alternating */
+  .feature-block {
+    padding: 90px 0;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .feature-block:first-of-type { border-top: none; padding-top: 60px; }
+  .feature-block.alt { background: var(--paper-soft); }
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+  }
+  .feature-row.reverse { grid-template-columns: 1.1fr 1fr; }
+  .feature-row.reverse .fr-text { order: 2; }
+  .feature-row.reverse .fr-visual { order: 1; }
+
+  .fr-text .feat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--plum);
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .fr-text .feat-num::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--plum);
+  }
+  .fr-text h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 4vw, 50px);
+    font-weight: 380;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: 22px;
+    color: var(--ink);
+  }
+  .fr-text h3 em {
+    font-style: italic;
+    font-weight: 350;
+    color: var(--plum);
+  }
+  .fr-text > p {
+    font-size: 17px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: 26px;
+    max-width: 480px;
+  }
+  .fr-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .fr-bullets li {
+    padding: 13px 18px;
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .feature-block.alt .fr-bullets li { background: var(--paper); }
+  .fr-bullets li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--plum);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .feat-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .feat-head .feat-num { margin-bottom: 0; }
+
+  .fr-visual {
+    position: relative;
+    min-height: 440px;
+  }
+
+  /* Mock 01 — Avatar gallery (video demo) */
+  .mock-gallery {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(42, 37, 32, 0.08);
+    line-height: 0;
+  }
+  .mock-gallery video {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+  }
+  .mock-gallery .photo-card { aspect-ratio: 3 / 4; }
+  .mock-gallery-head {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 4px;
+  }
+  .mock-gallery-head .title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .mock-gallery-head .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--plum);
+    background: var(--lilac-faint);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--lilac);
+  }
+
+  /* Mock 02 — Calendar */
+  .mock-calendar {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(42, 37, 32, 0.08);
+  }
+  .mc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .mc-head h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .mc-accounts {
+    display: flex;
+    margin-left: 10px;
+  }
+  .mc-acc {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--paper-elev);
+    margin-left: -6px;
+    background: linear-gradient(135deg, var(--lilac), var(--plum));
+  }
+  .mc-acc:nth-child(2) { background: linear-gradient(135deg, var(--honey), #B8895C); }
+  .mc-acc:nth-child(3) { background: linear-gradient(135deg, #9FB39A, #6B8268); }
+  .mc-acc:nth-child(4) { background: linear-gradient(135deg, #C9A2D9, #8B6FAE); }
+  .mc-acc-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mid);
+    background: var(--paper-soft);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-left: 6px;
+  }
+  .mc-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  .mc-day {
+    aspect-ratio: 0.85;
+    border-radius: 8px;
+    background: var(--paper-soft);
+    border: 1px solid var(--line-soft);
+    padding: 6px;
+    position: relative;
+  }
+  .mc-day .dnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .mc-day .dpost {
+    position: absolute;
+    bottom: 5px; left: 5px; right: 5px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--lilac);
+  }
+  .mc-day.heavy { background: var(--lilac-faint); border-color: var(--lilac); }
+  .mc-day.heavy .dpost { background: var(--plum); height: 8px; }
+  .mc-day.empty .dpost { display: none; }
+  .cap-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--plum);
+    background: var(--lilac-faint);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* Mock 03 — Reference archive (video demo) */
+  .mock-archive {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(42, 37, 32, 0.08);
+    line-height: 0;
+  }
+  .mock-archive video {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+  }
+  .arch-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .arch-head h6 {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .arch-add {
+    background: var(--paper-soft);
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .arch-add::before { content: '+'; color: var(--plum); font-weight: 700; }
+  .arch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .arch-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--paper-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+  }
+  .arch-row.syncing {
+    border-color: var(--honey);
+    background: rgba(201, 168, 118, 0.06);
+  }
+  .arch-handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--plum);
+    font-weight: 500;
+  }
+  .arch-row.syncing .arch-handle::before {
+    content: '⟳';
+    margin-right: 6px;
+    color: var(--honey);
+    animation: spin 2s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .arch-thumbs {
+    display: flex;
+    gap: 4px;
+    margin-left: 4px;
+  }
+  .arch-thumb {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--lilac-soft), var(--lilac));
+    border: 1px solid var(--line);
+  }
+  .arch-meta {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  .arch-meta .big {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 13px;
+    display: block;
+  }
+
+  /* Mock 04 — Captions panel */
+  .mock-captions {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 20px 50px rgba(42, 37, 32, 0.08);
+  }
+  .cap-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .cap-head h6 {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .cap-item {
+    padding: 14px 16px;
+    background: var(--paper-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+    position: relative;
+  }
+  .cap-item.picked {
+    background: var(--lilac-faint);
+    border-color: var(--lilac);
+  }
+  .cap-item .hashtag {
+    color: var(--plum);
+    font-weight: 500;
+  }
+  .cap-item .picked-mark {
+    position: absolute;
+    top: 12px; right: 12px;
+    color: var(--plum);
+    font-size: 14px;
+  }
+
+  /* Mock 05 — Auto DMs (coming soon) */
+  .mock-chat {
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(42, 37, 32, 0.08);
+    position: relative;
+  }
+  .mock-chat::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(165deg, transparent 50%, rgba(201, 168, 118, 0.08));
+    pointer-events: none;
+    border-radius: 20px;
+  }
+  .chat-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .chat-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lilac), var(--plum));
+  }
+  .chat-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .chat-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--honey);
+    margin-top: 2px;
+  }
+  .chat-flag {
+    margin-left: auto;
+  }
+  .chat-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--paper-soft);
+    min-height: 240px;
+  }
+  .chat-body .bubble {
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    max-width: 75%;
+    line-height: 1.4;
+  }
+  .chat-body .bubble.fan {
+    align-self: flex-start;
+    background: var(--paper-elev);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-body .bubble.you {
+    align-self: flex-end;
+    background: var(--plum);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-body .meta {
+    align-self: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--plum);
+    letter-spacing: 0.1em;
+  }
+
+  /* Comparator table */
+  .compare-table-wrap {
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--paper-elev);
+  }
+  .ctab {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .ctab th, .ctab td {
+    padding: 16px 18px;
+    text-align: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .ctab th:first-child, .ctab td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .ctab th {
+    background: var(--paper-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .ctab th.triniti {
+    background: var(--lilac-faint);
+    color: var(--plum);
+  }
+  .ctab td.triniti { background: rgba(232, 221, 242, 0.4); }
+  .ctab tr:last-child td { border-bottom: none; }
+  .ctab tr.total td { background: var(--paper-soft); font-weight: 700; }
+  .ctab tr.total td.triniti { background: var(--lilac-faint); color: var(--plum); }
+  .ctab .check-good { color: var(--plum); font-weight: 700; }
+  .ctab .check-bad { color: var(--ink-faint); }
+
+  .compare-foot {
+    margin-top: 28px;
+    padding: 24px 28px;
+    background: var(--paper-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .compare-foot-text {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+  .compare-foot-text strong { color: var(--ink); }
+
+  @media (max-width: 960px) {
+    .feature-row, .feature-row.reverse { grid-template-columns: 1fr; gap: 36px; }
+    .feature-row.reverse .fr-text { order: 1; }
+    .feature-row.reverse .fr-visual { order: 2; }
+    .fr-visual { min-height: 360px; }
+    .ctab { font-size: 12px; }
+    .ctab th, .ctab td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="banner-content">
+    <span class="banner-dot"></span>
+    <span>Early access · <em>40% OFF for life</em> · 23 spots left</span>
+    <span class="banner-dot"></span>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo" aria-label="Triniti — Home">
+      <span class="logo-lottie" aria-hidden="true"></span>
+      <span class="logo-word">Triniti</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="producto.html" class="active">Product</a>
+      <a href="planes.html">Pricing</a>
+    </div>
+    <a href="talk-to-sales.html" class="nav-cta">Book a demo</a>
+  </div>
+</nav>
+
+<!-- Page hero -->
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow center reveal reveal-1">The product</div>
+    <h1 class="display reveal reveal-2">
+      One tool. <span class="italic">Your whole stack.</span>
+    </h1>
+    <p class="reveal reveal-3">
+      Four integrated modules that replace Sozee, Supercreator, Inrō, and Later. Plus one no competitor offers: smart search.
+    </p>
+  </div>
+</section>
+
+<!-- Feature 01 · AI content -->
+<section class="feature-block" id="contenido">
+  <div class="container">
+    <div class="feature-row">
+      <div class="fr-text">
+        <div class="feat-head">
+          <span class="feat-num">/ 01 · AI GENERATION</span>
+        </div>
+        <h3>Infinite content from <em>3 photos.</em></h3>
+        <p>Train your creator's model once. Then batch-generate hyper-realistic images and short videos — looks, locations, and outfits you'd never have time to shoot.</p>
+        <ul class="fr-bullets">
+          <li>Images with perfect consistency across posts</li>
+          <li>Short videos for Reels (5–15 seconds)</li>
+          <li>Unlimited locations, outfits, and poses</li>
+          <li>No watermarks · 100% commercial rights</li>
+        </ul>
+        <a href="planes.html" class="btn-secondary">View pricing →</a>
+      </div>
+      <div class="fr-visual">
+        <div class="mock-gallery">
+          <video autoplay muted playsinline loop preload="auto" aria-label="Triniti AI generation gallery">
+            <source src="assets/gallery-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 02 · Scheduling -->
+<section class="feature-block alt" id="programacion">
+  <div class="container">
+    <div class="feature-row reverse">
+      <div class="fr-text">
+        <div class="feat-head">
+          <span class="feat-num">/ 02 · MULTI-ACCOUNT SCHEDULING</span>
+        </div>
+        <h3>One calendar. <em>Twenty accounts.</em></h3>
+        <p>Upload once to the central library and choose which profiles get each piece. Triniti posts on time using Meta's official API.</p>
+        <ul class="fr-bullets">
+          <li>Up to 20 Instagram accounts in parallel</li>
+          <li>Official Meta API — no proxies, no bans</li>
+          <li>Optimal times suggested per audience</li>
+          <li>Calendar, list, or grid view</li>
+        </ul>
+        <a href="planes.html" class="btn-secondary">View pricing →</a>
+      </div>
+      <div class="fr-visual">
+        <div class="mock-calendar">
+          <div class="mc-head">
+            <div style="display:flex; align-items:center;">
+              <h5>November</h5>
+              <div class="mc-accounts">
+                <div class="mc-acc"></div>
+                <div class="mc-acc"></div>
+                <div class="mc-acc"></div>
+                <div class="mc-acc"></div>
+              </div>
+              <span class="mc-acc-count">+4 accounts</span>
+            </div>
+            <span class="cap-tag">62 posts</span>
+          </div>
+          <div class="mc-grid">
+            <div class="mc-day"><span class="dnum">M</span></div>
+            <div class="mc-day heavy"><span class="dnum">04</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">05</span><span class="dpost"></span></div>
+            <div class="mc-day heavy"><span class="dnum">06</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">07</span><span class="dpost"></span></div>
+            <div class="mc-day empty"><span class="dnum">08</span></div>
+            <div class="mc-day heavy"><span class="dnum">09</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">10</span><span class="dpost"></span></div>
+            <div class="mc-day heavy"><span class="dnum">11</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">12</span><span class="dpost"></span></div>
+            <div class="mc-day empty"><span class="dnum">13</span></div>
+            <div class="mc-day heavy"><span class="dnum">14</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">15</span><span class="dpost"></span></div>
+            <div class="mc-day heavy"><span class="dnum">16</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">17</span><span class="dpost"></span></div>
+            <div class="mc-day heavy"><span class="dnum">18</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">19</span><span class="dpost"></span></div>
+            <div class="mc-day empty"><span class="dnum">20</span></div>
+            <div class="mc-day heavy"><span class="dnum">21</span><span class="dpost"></span></div>
+            <div class="mc-day"><span class="dnum">22</span><span class="dpost"></span></div>
+            <div class="mc-day heavy"><span class="dnum">23</span><span class="dpost"></span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 03 · Reference archive -->
+<section class="feature-block" id="referencias">
+  <div class="container">
+    <div class="feature-row">
+      <div class="fr-text">
+        <div class="feat-head">
+          <span class="feat-num">/ 03 · SMART SEARCH</span>
+        </div>
+        <h3>Smart search. <em>Any creator, full feed.</em></h3>
+        <p>Search by name or @handle. Triniti finds the profile and pulls their entire Instagram into your private library — photos, reels, captions, hashtags, and posting times. Keeps syncing when they post.</p>
+        <ul class="fr-bullets">
+          <li>Search by name or @handle</li>
+          <li>Full feed lands in your library</li>
+          <li>Filter by format, date, engagement, hashtag</li>
+          <li>No competitor (Sozee, Inrō, Later) has this</li>
+        </ul>
+        <a href="planes.html" class="btn-secondary">View pricing →</a>
+      </div>
+      <div class="fr-visual">
+        <div class="mock-archive">
+          <video autoplay muted playsinline loop preload="auto" aria-label="Triniti smart search in action">
+            <source src="assets/archive-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 04 · Captions -->
+<section class="feature-block alt" id="captions">
+  <div class="container">
+    <div class="feature-row reverse">
+      <div class="fr-text">
+        <div class="feat-head">
+          <span class="feat-num">/ 04 · CAPTIONS THAT CONVERT</span>
+        </div>
+        <h3>Copy that <em>sells.</em> Not corporate-speak.</h3>
+        <p>Every caption optimized for Instagram's algorithm and your funnel. Hooks, CTAs, hashtags, and emojis in the right niche voice.</p>
+        <ul class="fr-bullets">
+          <li>3 variations per post for A/B testing</li>
+          <li>Relevant, up-to-date hashtags</li>
+          <li>CTAs that drive traffic to your funnel</li>
+          <li>Voice cloning per account</li>
+        </ul>
+        <a href="planes.html" class="btn-secondary">View pricing →</a>
+      </div>
+      <div class="fr-visual">
+        <div class="mock-captions">
+          <div class="cap-head">
+            <h6>Post · Wednesday café</h6>
+            <span class="cap-tag">3 options</span>
+          </div>
+          <div class="cap-item picked">
+            <span class="picked-mark">✓</span>
+            mood of the day ☕ anyone with secret plans today? tell me in DMs 👀<br><span class="hashtag">#mood #cafe #wednesday #LATAM</span>
+          </div>
+          <div class="cap-item">
+            coffee and overthinking day... what's on your mind? 💭<br><span class="hashtag">#aesthetic #cafe #mood</span>
+          </div>
+          <div class="cap-item">
+            feeling calm today. message me and I'll tell you 🥰<br><span class="hashtag">#dailylife #cafe #vibes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 05 · Auto-DMs (coming soon) -->
+<section class="feature-block" id="auto-dms">
+  <div class="container">
+    <div class="feature-row">
+      <div class="fr-text">
+        <div class="feat-head">
+          <span class="feat-num">/ 05 · AUTO-ENGAGEMENT</span>
+          <span class="pronto-badge">Coming soon</span>
+        </div>
+        <h3>Reply to DMs and comments <em>24/7.</em></h3>
+        <p>AI that learns each account's tone and replies to comments and DMs automatically. <strong>Actively in development</strong> — early access includes this module at launch, at no extra cost.</p>
+        <ul class="fr-bullets">
+          <li>Comment replies in under 60 seconds</li>
+          <li>Personalized DMs with CTAs to OF</li>
+          <li>High-value lead detection</li>
+          <li>Adjustable personality per account</li>
+        </ul>
+        <a href="planes.html" class="btn-secondary">Reserve early access →</a>
+      </div>
+      <div class="fr-visual">
+        <div class="mock-chat">
+          <div class="chat-head">
+            <div class="chat-avatar"></div>
+            <div>
+              <div class="chat-name">@sofialux · IG DM</div>
+              <div class="chat-status">Coming soon · in development</div>
+            </div>
+            <span class="chat-flag pronto-badge outline">Q1 2026</span>
+          </div>
+          <div class="chat-body">
+            <div class="bubble fan">Hey, loved your latest post 😍</div>
+            <div class="bubble you">Aww thanks babe 🥰 what are you up to?</div>
+            <div class="meta">/ auto · 0.6s</div>
+            <div class="bubble fan">Got anything more exclusive?</div>
+            <div class="bubble you">I've got my special link 😉 ↗ link.tree/sofialux</div>
+            <div class="meta">/ auto · 0.4s · CTA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparator table -->
+<section style="padding: 100px 0; background: var(--paper-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Honest comparison</div>
+        <h2 class="display">Here's what you <span class="italic">replace</span> with Triniti.</h2>
+      </div>
+      <span class="label">[ 06 — vs Competitors ]</span>
+    </div>
+    <p class="lede" style="margin-bottom: 36px; max-width: 720px;">
+      The tools OF agencies actually pay for today — and what each one does NOT do.
+    </p>
+
+    <div class="compare-table-wrap">
+      <table class="ctab">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Sozee</th>
+            <th>Supercreator</th>
+            <th>Inrō</th>
+            <th>Later</th>
+            <th class="triniti">Triniti</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI content generation</td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom model avatars</td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr>
+            <td>Multi-account IG scheduling</td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-good">✓</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr>
+            <td>Instagram auto-DMs</td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td class="triniti"><span class="pronto-badge" style="font-size: 9px; padding: 2px 8px;">Coming soon</span></td>
+          </tr>
+          <tr>
+            <td>Smart search</td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr>
+            <td>Niche AI captions</td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td><span class="check-bad">✕</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr>
+            <td>No revenue share</td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-bad">✕ (5%)</span></td>
+            <td><span class="check-good">✓</span></td>
+            <td><span class="check-good">✓</span></td>
+            <td class="triniti"><span class="check-good">✓</span></td>
+          </tr>
+          <tr class="total">
+            <td>Monthly cost (8 accounts)</td>
+            <td>$299</td>
+            <td>$792 + 5%</td>
+            <td>$150</td>
+            <td>$80</td>
+            <td class="triniti">$997</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="compare-foot">
+      <div class="compare-foot-text">
+        Traditional stack: <strong>$1,321/mo + 5% revenue</strong><br>
+        Triniti Growth: <strong>$997/mo · no commissions</strong>
+      </div>
+      <a href="planes.html" class="btn-primary" style="padding: 14px 26px; font-size: 14px;">See my savings →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 130px 0; text-align: center; position: relative; overflow: hidden;">
+  <style>
+    .cta-circle {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: var(--lilac);
+      border-radius: 50%;
+      filter: blur(200px);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+  </style>
+  <div class="cta-circle"></div>
+  <div class="container" style="position: relative;">
+    <h2 class="display" style="margin-bottom: 28px;">
+      You've seen what it does.<br><span class="italic">Now put it to work.</span>
+    </h2>
+    <p style="font-size: 17px; color: var(--ink-mid); max-width: 540px; margin: 0 auto 40px;">
+      30-minute demo, white-glove onboarding, dedicated account manager. 23 early-access spots left with locked pricing.
+    </p>
+    <div class="btn-row" style="justify-content: center;">
+      <a href="talk-to-sales.html" class="btn-primary" style="padding: 20px 36px; font-size: 16px;">
+        Book a demo
+        <span style="font-size: 20px;">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo" aria-label="Triniti — Home">
+          <span class="logo-lottie" aria-hidden="true"></span>
+          <span class="logo-word">Triniti</span>
+        </a>
+        <p class="foot-tag">AI content, multi-account scheduling, and smart search — one dashboard for OF agencies.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="producto.html">Product</a></li>
+          <li><a href="planes.html">Pricing</a></li>
+          <li><a href="talk-to-sales.html">Talk to sales</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="#contenido">AI generation</a></li>
+          <li><a href="#programacion">Scheduling</a></li>
+          <li><a href="#referencias">Smart search</a></li>
+          <li><a href="#captions">Captions</a></li>
+          <li><a href="#auto-dms">Auto-DMs · Coming soon</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span><em>The platform for agencies that scale without fear</em> · 2026</span>
+      <span>© Triniti</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="logo.js"></script>
+</body>
+</html>
